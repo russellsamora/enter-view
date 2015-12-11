@@ -7,12 +7,17 @@
         <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
         <style>
         	* {
-        		box-sizing: border-box;
         		-moz-box-sizing: border-box;
+        		box-sizing: border-box;
+        	}
+        	html {
+        		margin: 0;
+        		padding: 0;
         	}
         	body {
         		margin: 0;
         		padding: 0;
+        		width: 100%;
         		font-size: 17px;
         		font-family: Helvetica, sans-serif;
         		font-weight: 300;
@@ -36,14 +41,50 @@
         		text-align: center;
         		max-width: 100%;
         	}
+        	article {
+        		padding: 1em;
+        	}
+        	.prompt {
+        		text-align: center;
+        		height: 90vh;
+        	}
+        	.explain {
+        		text-align: center;
+        		margin-top: 50vh;
+        	}
+
+        	.blocks {
+        		margin-bottom: 75vh;
+        	}
 
         	.block {
         		width: 100%;
-        		height: 67vh;
-        		margin: 1em;
-        		background: #eee;
+        		margin-top: 1em;
+        		margin-bottom; 1em;
+        		height: 25vh;
+        		background: #ccc;
         		text-align: center;
+        		-webkit-transform-style: preserve-3d;
+				-moz-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+				-webkit-transition: 1.5s background;
+  				-moz-transition: 1.5s background;
+  				transition: 1.5s background;
         	}
+
+        	.block p {
+        		position: relative;
+  				top: 50%;
+  				-moz-transform: translateY(-50%);
+  				-webkit-transform: translateY(-50%);
+  				transform: translateY(-50%);
+  				font-size: 2em;
+        	}
+
+        	.block.entered {
+        		background: #fff888;
+        	}
+
 
 
         </style>
@@ -52,9 +93,98 @@
 		<article>
 			<h1>Enter-view.js Demo</h1>
 			<p class='description'>Dependency-free JavaScript <a href='https://github.com/russellgoldenberg/enter-view'>library</a> to detect when element enters into view</p>
+			<p class='prompt'>Start scrolling to see examples.</p>
+			<div class='blocks'>
+				<p class='explain'>Default (no offset)</p>
+				<code>
+					<pre>
+						enterView({
+							selector: 'block-a',
+							func: function(el) {
+								el.classList.add('entered');
+							}
+						});
+					</pre>
+				</code>
+				<div class='block block-a'><p>.block-a</p></div>
+
+				<p class='explain'>30% offset</p>
+				<code>
+					<pre>
+						enterView({
+							selector: 'block-b',
+							offset: '25%',
+							func: function(el) {
+								el.classList.add('entered');
+							}
+						});
+					</pre>
+				</code>
+				<div class='block block-b'><p>.block-b</p></div>
+
+				<p class='explain'>100% offset</p>
+				<code>
+					<pre>
+						enterView({
+							selector: 'block-c',
+							offset: '100%',
+							func: function(el) {
+								el.classList.add('entered');
+							}
+						});
+					</pre>
+				</code>
+				<div class='block block-c'><p>.block-c</p></div>
+
+				<p class='explain'>Multiple elements, 50% offset</p>
+				<code>
+					<pre>
+						enterView({
+							selector: 'block-d',
+							offset: '50%',
+							func: function(el) {
+								el.classList.add('entered');
+							}
+						});
+					</pre>
+				</code>
+				<div class='block block-d'><p>.block-d</p></div>
+				<div class='block block-d'><p>.block-d</p></div>
+				<div class='block block-d'><p>.block-d</p></div>
+			</div>
+		</article>
 		<script src='enter-view.min.js'></script>
 		<script>
-			
+			enterView({
+				selector: 'block-a',
+				func: function(el) {
+					el.classList.add('entered');
+				}
+			});
+
+			enterView({
+				selector: 'block-b',
+				offset: '25%',
+				func: function(el) {
+					el.classList.add('entered');
+				}
+			});
+
+			enterView({
+				selector: 'block-c',
+				offset: '100%',
+				func: function(el) {
+					el.classList.add('entered');
+				}
+			});
+
+			enterView({
+				selector: 'block-d',
+				offset: '50%',
+				func: function(el) {
+					el.classList.add('entered');
+				}
+			});
 		</script>
 	</body>
 </html>

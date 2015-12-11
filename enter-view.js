@@ -26,7 +26,8 @@
             if (isValid) {
 				setupDefaultParams();
 				setupElements();
-				setupEvents();	 
+				setupEvents();
+				updateScroll(); 
 			}
         };
 
@@ -57,7 +58,7 @@
 
        
         var onResize = function() {
-          
+        	updateScroll();
         };
 
         var onScroll = function() {
@@ -102,13 +103,13 @@
 		};
 
 		var getOffset = function() {
+			var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 			if (opts.offset) {
-				var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 				var num = parseInt(opts.offset.replace('%', '')) / 100;
 				var fraction = Math.max(0, Math.min(100, num));
 				return h - fraction * h;
 			}
-			return 0;
+			return h;
 		};
 
         var raf = function() {
