@@ -81,7 +81,7 @@
 				var bottom = rect.bottom;
 
 				if (top < _distanceFromTop) {
-					opts.func(el);
+					opts.trigger(el);
 					remove.push(i);
 				}
 			}

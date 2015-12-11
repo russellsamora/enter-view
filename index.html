@@ -100,7 +100,7 @@
 					<pre>
 						enterView({
 							selector: 'block-a',
-							func: function(el) {
+							trigger: function(el) {
 								el.classList.add('entered');
 							}
 						});
@@ -114,7 +114,7 @@
 						enterView({
 							selector: 'block-b',
 							offset: '25%',
-							func: function(el) {
+							trigger: function(el) {
 								el.classList.add('entered');
 							}
 						});
@@ -128,7 +128,7 @@
 						enterView({
 							selector: 'block-c',
 							offset: '100%',
-							func: function(el) {
+							trigger: function(el) {
 								el.classList.add('entered');
 							}
 						});
@@ -142,7 +142,7 @@
 						enterView({
 							selector: 'block-d',
 							offset: '50%',
-							func: function(el) {
+							trigger: function(el) {
 								el.classList.add('entered');
 							}
 						});
@@ -157,7 +157,7 @@
 		<script>
 			enterView({
 				selector: 'block-a',
-				func: function(el) {
+				trigger: function(el) {
 					el.classList.add('entered');
 				}
 			});
@@ -165,7 +165,7 @@
 			enterView({
 				selector: 'block-b',
 				offset: '25%',
-				func: function(el) {
+				trigger: function(el) {
 					el.classList.add('entered');
 				}
 			});
@@ -173,7 +173,7 @@
 			enterView({
 				selector: 'block-c',
 				offset: '100%',
-				func: function(el) {
+				trigger: function(el) {
 					el.classList.add('entered');
 				}
 			});
@@ -181,7 +181,7 @@
 			enterView({
 				selector: 'block-d',
 				offset: '50%',
-				func: function(el) {
+				trigger: function(el) {
 					el.classList.add('entered');
 				}
 			});
