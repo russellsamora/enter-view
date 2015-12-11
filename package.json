@@ -16,7 +16,7 @@
   ],
   "author": "Russell Goldenberg",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "browser-sync": "^2.10.0",
     "gulp": "^3.9.0",
     "gulp-rename": "^1.2.2",
