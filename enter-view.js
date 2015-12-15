@@ -19,7 +19,7 @@
 		var _elements = [];
 
         var init = function() {
-            window.requestAnimatoinFrame = raf();
+            window.requestAnimationFrame = raf();
 
             var isValid = hasValidParams();
 
