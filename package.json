@@ -1,6 +1,6 @@
 {
   "name": "enter-view",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Dependency-free JavaScript library to detect when element enters into view",
   "main": "enter-view.js",
   "scripts": {
