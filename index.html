@@ -98,40 +98,40 @@
 				<p class='explain'>Default (no offset)</p>
 				<code>
 					<pre>
-						enterView({
-							selector: 'block-a',
-							trigger: function(el) {
-								el.classList.add('entered');
-							}
-						});
+enterView({
+	selector: '.block-a',
+	trigger: function(el) {
+		el.classList.add('entered');
+	}
+});
 					</pre>
 				</code>
 				<div class='block block-a'><p>.block-a</p></div>
 
-				<p class='explain'>30% offset</p>
+				<p class='explain'>25% offset</p>
 				<code>
 					<pre>
-						enterView({
-							selector: 'block-b',
-							offset: '25%',
-							trigger: function(el) {
-								el.classList.add('entered');
-							}
-						});
+enterView({
+	selector: '.block-b',
+	offset: '25%',
+	trigger: function(el) {
+		el.classList.add('entered');
+	}
+});
 					</pre>
 				</code>
 				<div class='block block-b'><p>.block-b</p></div>
 
-				<p class='explain'>100% offset</p>
+				<p class='explain'>75% offset</p>
 				<code>
 					<pre>
-						enterView({
-							selector: 'block-c',
-							offset: '100%',
-							trigger: function(el) {
-								el.classList.add('entered');
-							}
-						});
+enterView({
+	selector: '.block-c',
+	offset: '75%',
+	trigger: function(el) {
+		el.classList.add('entered');
+	}
+});
 					</pre>
 				</code>
 				<div class='block block-c'><p>.block-c</p></div>
@@ -139,13 +139,13 @@
 				<p class='explain'>Multiple elements, 50% offset</p>
 				<code>
 					<pre>
-						enterView({
-							selector: 'block-d',
-							offset: '50%',
-							trigger: function(el) {
-								el.classList.add('entered');
-							}
-						});
+enterView({
+	selector: '.block-d',
+	offset: '50%',
+	trigger: function(el) {
+		el.classList.add('entered');
+	}
+});
 					</pre>
 				</code>
 				<div class='block block-d'><p>.block-d</p></div>
@@ -156,14 +156,14 @@
 		<script src='enter-view.min.js'></script>
 		<script>
 			enterView({
-				selector: 'block-a',
+				selector: '.block-a',
 				trigger: function(el) {
 					el.classList.add('entered');
 				}
 			});
 
 			enterView({
-				selector: 'block-b',
+				selector: '.block-b',
 				offset: '25%',
 				trigger: function(el) {
 					el.classList.add('entered');
@@ -171,15 +171,15 @@
 			});
 
 			enterView({
-				selector: 'block-c',
-				offset: '100%',
+				selector: '.block-c',
+				offset: '75%',
 				trigger: function(el) {
 					el.classList.add('entered');
 				}
 			});
 
 			enterView({
-				selector: 'block-d',
+				selector: '.block-d',
 				offset: '50%',
 				trigger: function(el) {
 					el.classList.add('entered');
