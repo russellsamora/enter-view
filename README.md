@@ -6,7 +6,7 @@ Dependency-free JavaScript library to detect when element enters into view. [See
 
 ```
 enterView({
-	selector: 'class-name',
+	selector: '.class-name',
 	trigger: function(el) {
 		el.classList.add('entered');
 	}
