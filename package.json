@@ -1,6 +1,6 @@
 {
   "name": "enter-view",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Dependency-free JavaScript library to detect when element enters into view",
   "main": "enter-view.min.js",
   "scripts": {
@@ -24,6 +24,5 @@
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.1"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
