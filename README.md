@@ -12,3 +12,14 @@ enterView({
 	}
 });
 ```
+
+## Options
+
+#### selector: [string] *required*
+Takes a class or id element selector
+
+#### trigger: [function] *required*
+Callback function that returns the element that was triggered
+
+#### offset: [string] *optional* (defaults to 0% = top of element enters bottom of viewport)
+Percent (eg. '50%') of how far from the bottom of the viewport to offset the trigger by
