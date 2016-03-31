@@ -12,6 +12,3 @@ enterView({
 	}
 });
 ```
-
-Still under development...
-
