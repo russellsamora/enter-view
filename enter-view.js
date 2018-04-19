@@ -2,98 +2,99 @@
 * enter-view.js is library
 */
 
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(factory)
-    } else if (typeof module !== 'undefined' && module.exports) {
-        module.exports = factory()
-    } else {
-        window.enterView = factory.call(this)
-    }
+(function(factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+  } else if (typeof module !== 'undefined' && module.exports) {
+    module.exports = factory();
+  } else {
+    window.enterView = factory.call(this);
+  }
 })(() => {
+  const lib = ({ selector, trigger, offset }) => {
+    let raf = null;
+    let ticking = false;
+    let elements = [];
+    let height = 0;
 
-	const lib = ({ selector, trigger, offset }) => {
+    const setupRaf = () => {
+      raf =
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(callback) {
+          return setTimeout(callback, 1000 / 60);
+        };
+    };
 
-		let raf
-		let ticking
-		let elements
+    const getOffsetHeight = () => {
+      if (offset && typeof offset === 'number') {
+        const fraction = Math.min(Math.max(0, offset), 1);
+        return height - fraction * height;
+      }
+      return height;
+    };
 
-		const setupRaf = () => {
-			raf = window.requestAnimationFrame
-			|| window.webkitRequestAnimationFrame
-			|| window.mozRequestAnimationFrame
-			|| window.msRequestAnimationFrame
-			|| function(callback) { return setTimeout(callback, 1000 / 60) }
-		}
+    const updateHeight = () => {
+      const cH = document.documentElement.clientHeight;
+      const wH = window.innerHeight || 0;
+      height = Math.max(cH, wH);
+    };
 
-		const getOffset = () => {
-			const h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-			if (offset) {
-				const num = +(offset.replace('%', '')) / 100
-				const fraction = Math.max(0, Math.min(100, num))
-				return h - fraction * h
-			}
-			return h
-		}
+    const updateScroll = () => {
+      ticking = false;
+      const targetFromTop = getOffsetHeight();
 
-		const updateScroll = () => {
-			ticking = false
-			const distanceFromTop = getOffset()
+      elements = elements.filter(el => {
+        const rect = el.getBoundingClientRect();
+        const top = rect.top;
+        if (top < targetFromTop) {
+          trigger(el);
+          return false;
+        }
 
-			elements = elements.filter(el => {
-				const rect = el.getBoundingClientRect()
-				const top = rect.top
+        return true;
+      });
 
-				if (top < distanceFromTop) {
-					trigger(el)
-					return false
-				}
+      if (!elements.length) {
+        window.removeEventListener('scroll', onScroll, true);
+      }
+    };
 
-				return true
-			})
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        raf(updateScroll);
+      }
+    };
 
-			if (!elements.length) {
-				window.removeEventListener('scroll', onScroll, true)
-			}
-		}
+    const onResize = () => {
+      updateHeight();
+      updateScroll();
+    };
 
-		const onScroll = () => {
-			if (!ticking) {
-				ticking = true
-				raf(updateScroll)
-			}
-		}
+    const setupElements = () => {
+      elements = [...document.querySelectorAll(selector)];
+    };
 
-		const onResize = () => {
-			updateScroll()
-		}
+    const setupEvents = () => {
+      window.addEventListener('resize', onResize, true);
+      window.addEventListener('scroll', onScroll, true);
+      onResize();
+    };
 
-		const setupElements = () => {
-			const nodeList = document.querySelectorAll(selector)
-			elements = []
-			for (let i = 0; i < nodeList.length; i++) {
-				elements.push(nodeList[i])
-			}
-		}
+    const init = () => {
+      const valid = selector && trigger;
+      if (!valid) console.error('must set selector and trigger options');
+      setupRaf();
+      setupElements();
+      setupEvents();
+      updateScroll();
+    };
 
-		const setupEvents = () => {
-			window.addEventListener('resize', onResize, true)
-			window.addEventListener('scroll', onScroll, true)
-			onResize()
-		}
+    init();
+  };
 
-		const init = () => {
-			const valid = selector && trigger
-			if (!valid) console.error('must set selector and trigger options')
-			setupRaf()
-			setupElements()
-			setupEvents()
-			updateScroll()
-		}
-
-		init()
-	}
-
-	return lib
-
-})
+  return lib;
+});
