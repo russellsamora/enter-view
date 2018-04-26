@@ -20,7 +20,7 @@ enterView({
 		el.classList.add('entered');
 	},
 	offset: 0.5, // enter at middle of viewport
-	once: false, // trigger just once
+	once: true, // trigger just once
 });
 ```
 
