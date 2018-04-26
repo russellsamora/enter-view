@@ -2,7 +2,7 @@
 
 Dependency-free JavaScript library to detect when element enters into view. [See demo](https://russellgoldenberg.github.io/enter-view/).
 
-## Usage 
+## Usage
 
 ```
 enterView({
@@ -15,11 +15,18 @@ enterView({
 
 ## Options
 
-#### selector: [string] *required*
+#### selector: [string] _required_
+
 Takes a class or id element selector
 
-#### trigger: [function] *required*
+#### trigger: [function] _required_
+
 Callback function that returns the element that was triggered
 
-#### offset: [string] *optional* (defaults to 0% = top of element enters bottom of viewport)
-Percent (eg. '50%') of how far from the bottom of the viewport to offset the trigger by
+#### offset: [string] _optional_ (defaults to 0)
+
+A value from 0 to 1 of how far from the bottom of the viewport to offset the trigger by. 0 = top of element crosses bottom of viewport (enters screen from bottom), 1 = top of element crosses top of viewport (exits screen top).
+
+#### once: [boolean] _optional_ (defaults to true)
+
+Whether or not to trigger the callback once or every time.

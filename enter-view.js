@@ -11,7 +11,7 @@
     window.enterView = factory.call(this);
   }
 })(() => {
-  const lib = ({ selector, trigger, offset }) => {
+  const lib = ({ selector, trigger, offset = 0, once = true }) => {
     let raf = null;
     let ticking = false;
     let elements = [];
@@ -49,11 +49,12 @@
       elements = elements.filter(el => {
         const rect = el.getBoundingClientRect();
         const top = rect.top;
-        if (top < targetFromTop) {
+        const triggered = top < targetFromTop;
+        if (triggered && !el.enterViewTriggered) {
           trigger(el);
-          return false;
+          if (once) return false;
         }
-
+        el.enterViewTriggered = triggered;
         return true;
       });
 
