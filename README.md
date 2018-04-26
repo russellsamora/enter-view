@@ -26,13 +26,13 @@ enterView({
 
 ## Options
 
-#### selector: [string] _required_
+#### selector: [string or array of elements] _required_
 
-Takes a class or id element selector
+Takes a class, id, or array of dom elements.
 
 #### trigger: [function] _required_
 
-Callback function that returns the element that was triggered
+Callback function that returns the element that was triggered.
 
 #### offset: [number] _optional_ (defaults to 0)
 

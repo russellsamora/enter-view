@@ -17,7 +17,7 @@
     let elements = [];
     let height = 0;
 
-    const setupRaf = () => {
+    function setupRaf() {
       raf =
         window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -26,23 +26,23 @@
         function(callback) {
           return setTimeout(callback, 1000 / 60);
         };
-    };
+    }
 
-    const getOffsetHeight = () => {
+    function getOffsetHeight() {
       if (offset && typeof offset === 'number') {
         const fraction = Math.min(Math.max(0, offset), 1);
         return height - fraction * height;
       }
       return height;
-    };
+    }
 
-    const updateHeight = () => {
+    function updateHeight() {
       const cH = document.documentElement.clientHeight;
       const wH = window.innerHeight || 0;
       height = Math.max(cH, wH);
-    };
+    }
 
-    const updateScroll = () => {
+    function updateScroll() {
       ticking = false;
       const targetFromTop = getOffsetHeight();
 
@@ -61,38 +61,57 @@
       if (!elements.length) {
         window.removeEventListener('scroll', onScroll, true);
       }
-    };
+    }
 
-    const onScroll = () => {
+    function onScroll() {
       if (!ticking) {
         ticking = true;
         raf(updateScroll);
       }
-    };
+    }
 
-    const onResize = () => {
+    function onResize() {
       updateHeight();
       updateScroll();
-    };
+    }
 
-    const setupElements = () => {
-      elements = [...document.querySelectorAll(selector)];
-    };
+    function selectionToArray(selection) {
+      const len = selection.length;
+      const result = [];
+      for (let i = 0; i < len; i += 1) {
+        result.push(selection[i]);
+      }
+      return result;
+    }
 
-    const setupEvents = () => {
+    function selectAll(selector, parent = document) {
+      if (typeof selector === 'string') {
+        return selectionToArray(parent.querySelectorAll(selector));
+      } else if (selector instanceof NodeList) {
+        return selectionToArray(selector);
+      } else if (selector instanceof Array) {
+        return selector;
+      }
+    }
+
+    function setupElements() {
+      elements = selectAll(selector);
+    }
+
+    function setupEvents() {
       window.addEventListener('resize', onResize, true);
       window.addEventListener('scroll', onScroll, true);
       onResize();
-    };
+    }
 
-    const init = () => {
+    function init() {
       const valid = selector && trigger;
       if (!valid) console.error('must set selector and trigger options');
       setupRaf();
       setupElements();
       setupEvents();
       updateScroll();
-    };
+    }
 
     init();
   };

@@ -108,12 +108,12 @@ enterView({
 				</code>
 				<div class='block block-a'><p>.block-a</p></div>
 
-				<p class='explain'>25% offset</p>
+				<p class='explain'>50% offset</p>
 				<code>
 					<pre>
 enterView({
 	selector: '.block-b',
-	offset: '25%',
+	offset: 0.5,
 	trigger: function(el) {
 		el.classList.add('entered');
 	}
@@ -122,26 +122,30 @@ enterView({
 				</code>
 				<div class='block block-b'><p>.block-b</p></div>
 
-				<p class='explain'>75% offset</p>
+				<p class='explain'>75% offset, trigger every time</p>
 				<code>
 					<pre>
+var count = 0;
 enterView({
 	selector: '.block-c',
-	offset: '75%',
+	offset: '0.75,
+	once: false,
 	trigger: function(el) {
 		el.classList.add('entered');
+		 count++;
+		 el.querySelector('span').innerText = count;
 	}
 });
 					</pre>
 				</code>
-				<div class='block block-c'><p>.block-c</p></div>
+				<div class='block block-c'><p>.block-c (<span>0</span>)</p></div>
 
 				<p class='explain'>Multiple elements, 50% offset</p>
 				<code>
 					<pre>
 enterView({
 	selector: '.block-d',
-	offset: '50%',
+	offset: 0.5,
 	trigger: function(el) {
 		el.classList.add('entered');
 	}
@@ -165,18 +169,22 @@ enterView({
 
 			enterView({
 				selector: '.block-b',
-				offset: 0.25,
+				offset: 0.5,
 				trigger: function(el) {
 					el.classList.add('entered');
 				}
 			});
 
+			var count = 0;
 			enterView({
 				selector: '.block-c',
 				offset: 0.75,
+				once: false,
 				trigger: function(el) {
 					el.classList.add('entered');
-				}
+					count++;
+					el.querySelector('span').innerText = count;
+				},
 			});
 
 			enterView({
