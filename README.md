@@ -34,7 +34,7 @@ Takes a class, id, or array of dom elements.
 
 Callback function that returns the element that was entered.
 
-#### exit: [function] _required_
+#### exit: [function] _optional_
 
 Callback function that returns the element that was exited.
 
