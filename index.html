@@ -100,7 +100,7 @@
 					<pre>
 enterView({
 	selector: '.block-a',
-	trigger: function(el) {
+	enter: function(el) {
 		el.classList.add('entered');
 	}
 });
@@ -114,7 +114,7 @@ enterView({
 enterView({
 	selector: '.block-b',
 	offset: 0.5,
-	trigger: function(el) {
+	enter: function(el) {
 		el.classList.add('entered');
 	}
 });
@@ -129,8 +129,7 @@ var count = 0;
 enterView({
 	selector: '.block-c',
 	offset: '0.75,
-	once: false,
-	trigger: function(el) {
+	enter: function(el) {
 		el.classList.add('entered');
 		 count++;
 		 el.querySelector('span').innerText = count;
@@ -146,7 +145,7 @@ enterView({
 enterView({
 	selector: '.block-d',
 	offset: 0.5,
-	trigger: function(el) {
+	enter: function(el) {
 		el.classList.add('entered');
 	}
 });
@@ -155,22 +154,38 @@ enterView({
 				<div class='block block-d'><p>.block-d</p></div>
 				<div class='block block-d'><p>.block-d</p></div>
 				<div class='block block-d'><p>.block-d</p></div>
-			</div>
+
+			<p class='explain'>Exit element, 50% offset</p>
+			<code>
+				<pre>
+enterView({
+	selector: '.block-e',
+	offset: 0.5,
+	enter: function(el) {
+		el.classList.add('entered');
+	},
+	exit: function(el) {
+		el.classList.remove('entered');
+	},
+});
+				</pre>
+			</code>
+			<div class='block block-e'><p>.block-e</p></div>
+		</div>
 		</article>
 		<script src='enter-view.min.js'></script>
 		<script>
 			enterView({
 				selector: '.block-a',
-				trigger: function(el) {
+				enter: function(el) {
 					el.classList.add('entered');
-				},
-				once: false
+				}
 			});
 
 			enterView({
 				selector: '.block-b',
 				offset: 0.5,
-				trigger: function(el) {
+				enter: function(el) {
 					el.classList.add('entered');
 				}
 			});
@@ -179,8 +194,7 @@ enterView({
 			enterView({
 				selector: '.block-c',
 				offset: 0.75,
-				once: false,
-				trigger: function(el) {
+				enter: function(el) {
 					el.classList.add('entered');
 					count++;
 					el.querySelector('span').innerText = count;
@@ -190,10 +204,22 @@ enterView({
 			enterView({
 				selector: '.block-d',
 				offset: 0.5,
-				trigger: function(el) {
+				enter: function(el) {
 					el.classList.add('entered');
 				}
 			});
+
+			enterView({
+					selector: '.block-e',
+					offset: 0.5,
+					enter: function (el) {
+						el.classList.add('entered');
+					},
+					exit: function (el) {
+						console.log('exit')
+						el.classList.remove('entered');
+					}
+				});
 		</script>
 	</body>
 </html>

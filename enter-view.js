@@ -11,7 +11,7 @@
     window.enterView = factory.call(this);
   }
 })(() => {
-  const lib = ({ selector, trigger, offset = 0, once = true }) => {
+  const lib = ({ selector, enter, exit, offset = 0, once = false }) => {
     let raf = null;
     let ticking = false;
     let elements = [];
@@ -49,12 +49,13 @@
       elements = elements.filter(el => {
         const rect = el.getBoundingClientRect();
         const top = rect.top;
-        const triggered = top < targetFromTop;
-        if (triggered && !el.enterViewTriggered) {
-          trigger(el);
+        const entered = top < targetFromTop;
+        if (entered && !el.__enter_view) {
+          enter(el);
           if (once) return false;
-        }
-        el.enterViewTriggered = triggered;
+        } else if (!entered && el.__enter_view && exit) exit(el);
+
+        el.__enter_view = entered;
         return true;
       });
 
@@ -105,8 +106,8 @@
     }
 
     function init() {
-      const valid = selector && trigger;
-      if (!valid) console.error('must set selector and trigger options');
+      const valid = selector && enter;
+      if (!valid) console.error('must set selector and enter options');
       setupRaf();
       setupElements();
       setupEvents();
