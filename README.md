@@ -13,6 +13,17 @@ enterView({
 });
 ```
 
+```
+enterView({
+	selector: '.class-name',
+	trigger: function(el) {
+		el.classList.add('entered');
+	},
+	offset: 0.5, // trigger at middle of viewport
+	once: false, // trigger every time
+});
+```
+
 ## Options
 
 #### selector: [string] _required_
