@@ -49,29 +49,23 @@
       elements = elements.filter(el => {
         const rect = el.getBoundingClientRect();
         const top = rect.top;
+        const bottom = rect.bottom;
         const entered = top < targetFromTop;
+        const passed = bottom < targetFromTop;
+
         if (entered && !el.__enter_view) {
           enter(el);
           if (once) return false;
         } else if (!entered && el.__enter_view && exit) exit(el);
 
+        if(entered && !passed && progress) {
+          const progressPx = targetFromTop - rect.top;
+          let progressPct = progressPx / rect.height;
+          progress(el, progressPct);
+        }
         el.__enter_view = entered;
         return true;
       });
-
-      const insideIndex = elements.filter(el => el.__enter_view).length - 1
-
-      if(progress && insideIndex < elements.length && insideIndex != -1) {
-        const currentEl = elements[insideIndex];
-        const rect = currentEl.getBoundingClientRect();
-
-        const progressPx = targetFromTop - rect.top;
-        let progressPct = progressPx / rect.height;
-
-        if(progressPct > 1)
-            progressPct = 1;
-        progress(currentEl, progressPct);
-      }
 
       if (!elements.length) {
         window.removeEventListener('scroll', onScroll, true);
