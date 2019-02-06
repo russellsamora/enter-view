@@ -11,7 +11,7 @@
     window.enterView = factory.call(this);
   }
 })(() => {
-  const lib = ({ selector, enter, exit, offset = 0, once = false }) => {
+  const lib = ({ selector, enter, exit, progress, offset = 0, once = false }) => {
     let raf = null;
     let ticking = false;
     let elements = [];
@@ -59,6 +59,20 @@
         return true;
       });
 
+      const insideIndex = elements.filter(el => el.__enter_view).length - 1
+
+      if(progress && insideIndex < elements.length && insideIndex != -1) {
+        const currentEl = elements[insideIndex];
+        const rect = currentEl.getBoundingClientRect();
+
+        const progressPx = targetFromTop - rect.top;
+        let progressPct = progressPx / rect.height;
+
+        if(progressPct > 1)
+            progressPct = 1;
+        progress(currentEl, progressPct);
+      }
+
       if (!elements.length) {
         window.removeEventListener('scroll', onScroll, true);
       }
@@ -72,6 +86,11 @@
     }
 
     function onResize() {
+      updateHeight();
+      updateScroll();
+    }
+
+    function onLoad() {
       updateHeight();
       updateScroll();
     }
@@ -102,6 +121,7 @@
     function setupEvents() {
       window.addEventListener('resize', onResize, true);
       window.addEventListener('scroll', onScroll, true);
+      window.addEventListener('load', onLoad, true);
       onResize();
     }
 

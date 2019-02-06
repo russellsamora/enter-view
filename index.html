@@ -72,6 +72,10 @@
   				transition: 1.5s background;
         	}
 
+        	.block-f {
+        		height: 50vh;
+        	}
+
         	.block p {
         		position: relative;
   				top: 50%;
@@ -85,6 +89,9 @@
         		background: #fff888;
         	}
 
+        	.progress {
+        		font-size: 0.75em;
+        	}
 
 
         </style>
@@ -171,6 +178,24 @@ enterView({
 				</pre>
 			</code>
 			<div class='block block-e'><p>.block-e</p></div>
+
+			<p class='explain'>Progress across multiple elements, 50% offset</p>
+			<code>
+				<pre>
+enterView({
+	selector: '.block-f',
+	offset: 0.5,
+	enter: function(el) {
+		el.classList.add('entered');
+	},
+	progress: function(el, progress) {
+		el.querySelector('.progress').innerHTML = progress.toFixed(2);
+	}
+});
+				</pre>
+			</code>
+			<div class='block block-f'><p>.block-f <span class='progress'></span></p></div>
+			<div class='block block-f'><p>.block-f <span class='progress'></span></p></div>
 		</div>
 		</article>
 		<script src='enter-view.min.js'></script>
@@ -210,16 +235,27 @@ enterView({
 			});
 
 			enterView({
-					selector: '.block-e',
-					offset: 0.5,
-					enter: function (el) {
-						el.classList.add('entered');
-					},
-					exit: function (el) {
-						console.log('exit')
-						el.classList.remove('entered');
-					}
-				});
+				selector: '.block-e',
+				offset: 0.5,
+				enter: function (el) {
+					el.classList.add('entered');
+				},
+				exit: function (el) {
+					console.log('exit')
+					el.classList.remove('entered');
+				}
+			});
+
+			enterView({
+				selector: '.block-f',
+				offset: 0.5,
+				enter: function(el) {
+					el.classList.add('entered');
+				},
+				progress: function(el, progress) {
+					el.querySelector('.progress').innerHTML = progress.toFixed(2);
+				}
+			});
 		</script>
 	</body>
 </html>

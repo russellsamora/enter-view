@@ -38,6 +38,10 @@ Callback function that returns the element that was entered.
 
 Callback function that returns the element that was exited.
 
+#### progress: [function] _optional_
+
+Callback function that returns the element that was progressed through, and a value between 0 and 1 of how far through the element progress has been made.
+
 #### offset: [number] _optional_ (defaults to 0)
 
 A value from 0 to 1 of how far from the bottom of the viewport to offset the trigger by. 0 = top of element crosses bottom of viewport (enters screen from bottom), 1 = top of element crosses top of viewport (exits screen top).
