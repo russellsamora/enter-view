@@ -13,9 +13,9 @@
 })(() => {
   const lib = ({
     selector,
-    enter = null,
-    exit = null,
-    progress = null,
+    enter = () => {},
+    exit = () => {},
+    progress = () => {},
     offset = 0,
     once = false
   }) => {
@@ -59,21 +59,30 @@
         const exited = bottom < targetFromTop;
 
         // enter + exit
-        if (entered && !el.__enter_view) {
+        if (entered && !el.__ev_entered) {
           enter(el);
+          el.__ev_progress = 0;
+          progress(el, el.__ev_progress);
           if (once) return false;
-        } else if (!entered && el.__enter_view && typeof exit === 'function') {
+        } else if (!entered && el.__ev_entered) {
+          el.__ev_progress = 0;
+          progress(el, el.__ev_progress);
           exit(el);
         }
 
         // progress
-        if (typeof progress === 'function' && entered && !exited) {
+        if (entered && !exited) {
           const delta = (targetFromTop - top) / height;
-          const percent = Math.min(1, Math.max(0, delta));
-          progress(el, percent);
+          el.__ev_progress = Math.min(1, Math.max(0, delta));
+          progress(el, el.__ev_progress);
         }
 
-        el.__enter_view = entered;
+        if (entered && exited && el.__ev_progress !== 1) {
+          el.__ev_progress = 1;
+          progress(el, el.__ev_progress);
+        }
+
+        el.__ev_entered = entered;
         return true;
       });
 
@@ -130,14 +139,21 @@
     }
 
     function init() {
-      const valid = selector && enter && typeof enter === 'function';
-      if (valid) console.error('must set selector and enter options');
-      else {
-        setupRaf();
-        setupElements();
-        setupEvents();
-        updateScroll();
+      if (!selector) {
+        console.error('must pass a selector');
+        return false;
       }
+
+      setupElements();
+
+      if (!elements || !elements.length) {
+        console.error('no selector elements found');
+        return false;
+      }
+
+      setupRaf();
+      setupEvents();
+      updateScroll();
     }
 
     init();

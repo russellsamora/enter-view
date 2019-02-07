@@ -89,6 +89,13 @@
         		font-size: 0.75em;
         	}
 
+					pre {
+						max-width: 30rem;
+						margin: 0 auto;
+						background-color: #eee;
+						padding: 1rem;
+					}
+
 
         </style>
 	</head>
@@ -102,10 +109,10 @@
 				<code>
 					<pre>
 enterView({
-	selector: '.block-a',
-	enter: function(el) {
-		el.classList.add('entered');
-	}
+ selector: '.block-a',
+ enter: function(el) {
+  el.classList.add('entered');
+ }
 });
 					</pre>
 				</code>
@@ -115,11 +122,11 @@ enterView({
 				<code>
 					<pre>
 enterView({
-	selector: '.block-b',
-	offset: 0.5,
-	enter: function(el) {
-		el.classList.add('entered');
-	}
+ selector: '.block-b',
+ offset: 0.5,
+ enter: function(el) {
+  el.classList.add('entered');
+ }
 });
 					</pre>
 				</code>
@@ -130,13 +137,13 @@ enterView({
 					<pre>
 var count = 0;
 enterView({
-	selector: '.block-c',
-	offset: '0.75,
-	enter: function(el) {
-		el.classList.add('entered');
-		 count++;
-		 el.querySelector('span').innerText = count;
-	}
+ selector: '.block-c',
+ offset: '0.75,
+ enter: function(el) {
+  el.classList.add('entered');
+  count += 1;
+  el.querySelector('span').innerText = count;
+ }
 });
 					</pre>
 				</code>
@@ -146,11 +153,11 @@ enterView({
 				<code>
 					<pre>
 enterView({
-	selector: '.block-d',
-	offset: 0.5,
-	enter: function(el) {
-		el.classList.add('entered');
-	}
+ selector: '.block-d',
+ offset: 0.5,
+ enter: function(el) {
+  el.classList.add('entered');
+ }
 });
 					</pre>
 				</code>
@@ -162,35 +169,35 @@ enterView({
 			<code>
 				<pre>
 enterView({
-	selector: '.block-e',
-	offset: 0.5,
-	enter: function(el) {
-		el.classList.add('entered');
-	},
-	exit: function(el) {
-		el.classList.remove('entered');
-	},
+ selector: '.block-e',
+ offset: 0.5,
+ enter: function(el) {
+  el.classList.add('entered');
+ },
+ exit: function(el) {
+  el.classList.remove('entered');
+ },
 });
 				</pre>
 			</code>
 			<div class='block block-e'><p>.block-e</p></div>
 
-			<p class='explain'>Progress across multiple elements, 50% offset</p>
+			<p class='explain'>Progress increments, 50% offset</p>
 			<code>
 				<pre>
 enterView({
-	selector: '.block-f',
-	offset: 0.5,
-	enter: function(el) {
-		el.classList.add('entered');
-	},
-	progress: function(el, progress) {
-		el.querySelector('.progress').innerHTML = progress.toFixed(2);
-	}
+ selector: '.block-f',
+ offset: 0.5,
+ enter: function(el) {
+  el.classList.add('entered');
+ },
+ progress: function(el, progress) {
+  var p = el.querySelector('.progress')
+  p.innerText = progress.toFixed(2);
+ }
 });
 				</pre>
 			</code>
-			<div class='block block-f'><p>.block-f <span class='progress'></span></p></div>
 			<div class='block block-f'><p>.block-f <span class='progress'></span></p></div>
 		</div>
 		</article>
@@ -217,7 +224,7 @@ enterView({
 				offset: 0.75,
 				enter: function(el) {
 					el.classList.add('entered');
-					count++;
+					count += 1;
 					el.querySelector('span').innerText = count;
 				},
 			});
@@ -237,7 +244,6 @@ enterView({
 					el.classList.add('entered');
 				},
 				exit: function (el) {
-					console.log('exit')
 					el.classList.remove('entered');
 				}
 			});
@@ -249,7 +255,8 @@ enterView({
 					el.classList.add('entered');
 				},
 				progress: function(el, progress) {
-					el.querySelector('.progress').innerHTML = progress.toFixed(2);
+					var p = el.querySelector('.progress')
+					p.innerText = progress.toFixed(2);
 				}
 			});
 		</script>

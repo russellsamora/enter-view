@@ -30,7 +30,7 @@ enterView({
 
 Takes a class, id, or array of dom elements.
 
-#### enter: [function] _required_
+#### enter: [function] _optional_
 
 Callback function that returns the element that was entered.
 
