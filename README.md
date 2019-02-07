@@ -55,3 +55,8 @@ A value from 0 to 1 of how far from the bottom of the viewport to offset the tri
 #### once: [boolean] _optional_ (defaults to false)
 
 Whether or not to trigger the callback just once.
+
+## Contributors
+
+- [Russell Goldenberg](https://github.com/russellgoldenberg)
+- [Jonathan Soma](https://github.com/jsoma)
