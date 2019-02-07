@@ -1,6 +1,6 @@
 /*
-* enter-view.js is library
-*/
+ * enter-view.js is library
+ */
 
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
@@ -11,7 +11,14 @@
     window.enterView = factory.call(this);
   }
 })(() => {
-  const lib = ({ selector, enter, exit, progress, offset = 0, once = false }) => {
+  const lib = ({
+    selector,
+    enter = null,
+    exit = null,
+    progress = null,
+    offset = 0,
+    once = false
+  }) => {
     let raf = null;
     let ticking = false;
     let elements = [];
@@ -47,22 +54,25 @@
       const targetFromTop = getOffsetHeight();
 
       elements = elements.filter(el => {
-        const rect = el.getBoundingClientRect();
-        const top = rect.top;
-        const bottom = rect.bottom;
+        const { top, bottom, height } = el.getBoundingClientRect();
         const entered = top < targetFromTop;
-        const passed = bottom < targetFromTop;
+        const exited = bottom < targetFromTop;
 
+        // enter + exit
         if (entered && !el.__enter_view) {
           enter(el);
           if (once) return false;
-        } else if (!entered && el.__enter_view && exit) exit(el);
-
-        if(entered && !passed && progress) {
-          const progressPx = targetFromTop - rect.top;
-          let progressPct = progressPx / rect.height;
-          progress(el, progressPct);
+        } else if (!entered && el.__enter_view && typeof exit === 'function') {
+          exit(el);
         }
+
+        // progress
+        if (typeof progress === 'function' && entered && !exited) {
+          const delta = (targetFromTop - top) / height;
+          const percent = Math.min(1, Math.max(0, delta));
+          progress(el, percent);
+        }
+
         el.__enter_view = entered;
         return true;
       });
@@ -120,12 +130,14 @@
     }
 
     function init() {
-      const valid = selector && enter;
-      if (!valid) console.error('must set selector and enter options');
-      setupRaf();
-      setupElements();
-      setupEvents();
-      updateScroll();
+      const valid = selector && enter && typeof enter === 'function';
+      if (valid) console.error('must set selector and enter options');
+      else {
+        setupRaf();
+        setupElements();
+        setupEvents();
+        updateScroll();
+      }
     }
 
     init();
