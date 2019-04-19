@@ -2,6 +2,26 @@
 
 Dependency-free JavaScript library to detect when element enters into view. [See demo](https://russellgoldenberg.github.io/enter-view/). It uses requestAnimationFrame in favor of scroll events for less jank. Less than 1kb minified + gzipped.
 
+## Installation
+Old school (exposes the `enterView` global):
+
+```html
+<script src="https://unpkg.com/enter-view"></script>
+```
+
+New school:
+
+```sh
+npm install enter-view --save
+```
+
+And then import/require it:
+
+```js
+import enterView from 'enter-view'; // or...
+const enterView = require('enterView');
+```
+
 ## Usage
 
 ```
