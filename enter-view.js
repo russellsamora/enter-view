@@ -87,7 +87,9 @@
       });
 
       if (!elements.length) {
-        window.removeEventListener('scroll', onScroll, true);
+				window.removeEventListener('scroll', onScroll, true);
+				window.removeEventListener('resize', onResize, true);
+				window.removeEventListener('load', onLoad, true);
       }
     }
 
