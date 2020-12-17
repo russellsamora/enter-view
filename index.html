@@ -7,7 +7,6 @@
         <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
         <style>
         	* {
-        		-moz-box-sizing: border-box;
         		box-sizing: border-box;
         	}
         	html {
@@ -60,23 +59,17 @@
         	.block {
         		width: 100%;
         		margin-top: 1em;
-        		margin-bottom; 1em;
+        		margin-bottom: 1em;
         		height: 25vh;
         		background: #ccc;
         		text-align: center;
-        		-webkit-transform-style: preserve-3d;
-				-moz-transform-style: preserve-3d;
-				transform-style: preserve-3d;
-				-webkit-transition: 1.5s background;
-  				-moz-transition: 1.5s background;
+						transform-style: preserve-3d;
   				transition: 1.5s background;
         	}
 
         	.block p {
         		position: relative;
   				top: 50%;
-  				-moz-transform: translateY(-50%);
-  				-webkit-transform: translateY(-50%);
   				transform: translateY(-50%);
   				font-size: 2em;
         	}
@@ -206,6 +199,7 @@ enterView({
 			enterView({
 				selector: '.block-a',
 				enter: function(el) {
+					console.log("entered", el);
 					el.classList.add('entered');
 				}
 			});
