@@ -1,6 +1,6 @@
 # enter-view
 
-Dependency-free JavaScript library to detect when element enters into view. [See demo](https://russellgoldenberg.github.io/enter-view/). It uses requestAnimationFrame in favor of scroll events for less jank. Less than 1kb minified + gzipped.
+Dependency-free JavaScript library to detect when element enters into view. [See demo](https://russellsamora.github.io/enter-view/). It uses requestAnimationFrame in favor of scroll events for less jank. Less than 1kb minified + gzipped.
 
 ## Installation
 Old school (exposes the `enterView` global):
@@ -78,5 +78,5 @@ Whether or not to trigger the callback just once.
 
 ## Contributors
 
-- [Russell Goldenberg](https://github.com/russellgoldenberg)
+- [Russell Samora](https://github.com/russellsamora)
 - [Jonathan Soma](https://github.com/jsoma)
